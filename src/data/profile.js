@@ -17,7 +17,7 @@ export const PROFILE = {
   location: "India",
   available: true,          // toggles the "open for work" note
 
-  resumeUrl: "/Resume.pdf", // replace public/Ganesh_M.pdf with your own PDF named Resume.pdf
+  resumeUrl: `https://drive.google.com/uc?export=download&id=${import.meta.env.VITE_RESUME_FILE_ID}`, // replace public/Ganesh_M.pdf with your own PDF named Resume.pdf
   email: "karanprajapati032006@gmail.com",
 
   // Used by the About section's stat widget. Leave github blank ("") to hide that card.
