@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ============================================================
+   THEME — the ONE place to change colors/fonts across the site.
+   Tailwind v4 turns every --color-brand-* var below into real
+   utility classes (bg-brand-dark, text-brand-red, border-brand-*,
+   etc). Every component in src/ uses those classes — nothing
+   hardcodes a hex value — so editing a value here re-themes the
+   whole site with zero conflicts.
+
+   The only exceptions are the p5.js canvas in Hero.jsx and a
+   couple of dynamic inline styles in Skills.jsx/Projects.jsx,
+   which can't use Tailwind classes. Those read these same
+   variables at runtime via src/theme.js instead of duplicating
+   hex values — see that file for details.
+   ============================================================ */
+@theme {
+  --color-brand-bg: #FBFAF7;
+  --color-brand-dark: #182125;
+  --color-brand-red: #EB4E63;
+  --color-brand-gray: #969898;
+  --color-brand-muddy: #908571;
+  --color-brand-rose: #E0A0A1;
+  
+  --font-display: "Syne", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-size-xxs: 0.65rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-brand-dark);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    background-color: var(--color-brand-bg);
+    color: var(--color-brand-dark);
+    font-family: "Space Grotesk", sans-serif;
+    overflow-x: hidden;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Custom Selection */
+  ::selection {
+    background-color: var(--color-brand-red);
+    color: var(--color-brand-bg);
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-brand-bg);
+    border-left: 3px solid var(--color-brand-dark);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-brand-red);
+    border: 3px solid var(--color-brand-dark);
+    border-radius: 0px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-brand-muddy);
+  }
+}
+
+/* Custom Neo-brutalist Utilities */
+@utility bg-grid-pattern {
+  background-image: radial-gradient(var(--color-brand-gray) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility bg-grid-lines {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(24, 33, 37, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(24, 33, 37, 0.1) 1px, transparent 1px);
+}
+
+@utility neo-shadow {
+  box-shadow: 4px 4px 0px 0px var(--color-brand-dark);
+}
+
+@utility neo-shadow-lg {
+  box-shadow: 8px 8px 0px 0px var(--color-brand-dark);
+}
+
+@utility neo-shadow-sm {
+  box-shadow: 2px 2px 0px 0px var(--color-brand-dark);
+}
+
+/* Scroll Animation Keyframes */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@utility animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll-left 20s linear infinite;
+}
