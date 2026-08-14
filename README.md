@@ -113,9 +113,11 @@ export const PROJECTS = {
 
 `EXPERIENCES` and `CERTIFICATIONS` are both plain arrays — add, remove, or reorder freely. Leave `CERTIFICATIONS` as `[]` to hide that whole subsection; it reappears automatically once you add an entry.
 
-### Resume — `public/Resume.pdf`
+### Resume — `src/data/profile.js`
 
-Replace this file with your own PDF of the same name — the "Get My Resume" button points at `PROFILE.resumeUrl` (`/Resume.pdf` by default).
+Replace url file with your google link — the "Get My Resume" button points at the link provided, or use VITE_RESUME_FILE_ID in .env then use the file id in the link in env to let seurely download resume, without commiting in git history.
+
+`https://drive.google.com/uc?export=download&id=${import.meta.env.VITE_RESUME_FILE_ID}`
 
 ## Deployment
 
