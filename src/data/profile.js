@@ -21,10 +21,11 @@ export const PROFILE = {
   email: "karanprajapati032006@gmail.com",
 
   // Used by the About section's stat widget. Leave github blank ("") to hide that card.
-  github: "Silly-Programmer",
+  github: "",
 
   socials: {
     instagram: "https://instagram.com/_karanp__",
     youtube: "https://youtube.com/",
+    discord: "https://discordapp.com/users/1219625773456162836"
   },
 };

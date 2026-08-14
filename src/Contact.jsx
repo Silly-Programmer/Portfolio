@@ -1,15 +1,55 @@
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
-import { FaInstagram, FaYoutube } from "react-icons/fa";
+import { Mail, Link as LinkIcon } from "lucide-react";
+import {
+  FaInstagram, FaYoutube, FaDiscord, FaBehance, FaTwitter,
+  FaLinkedin, FaTiktok, FaFacebook, FaPinterest, FaGithub,
+  FaDribbble, FaThreads, FaTwitch, FaSnapchat,
+} from "react-icons/fa6";
 import { PROFILE } from "./data/profile";
 
-const TILES = [
-  { name: "Email", icon: Mail, href: `mailto:${PROFILE.email}`, sub: PROFILE.email, bg: "bg-brand-red" },
-  { name: "Instagram", icon: FaInstagram, href: PROFILE.socials.instagram, sub: "@your.handle", bg: "bg-brand-rose" },
-  { name: "YouTube", icon: FaYoutube, href: PROFILE.socials.youtube, sub: "Edited videos", bg: "bg-brand-dark", text: "text-brand-bg" },
-];
+// Known platforms get a matching icon/label/color automatically.
+// Add a brand-new platform key to PROFILE.socials in profile.js and, if it's
+// not listed here, it still renders fine with a generic link icon + its key
+// as the label — you only need to add a row here if you want a custom icon.
+const SOCIAL_META = {
+  instagram: { icon: FaInstagram, label: "Instagram", bg: "bg-brand-rose" },
+  youtube:   { icon: FaYoutube,   label: "YouTube",   bg: "bg-brand-dark", text: "text-brand-bg" },
+  discord:   { icon: FaDiscord,   label: "Discord",   bg: "bg-brand-bg" },
+  behance:   { icon: FaBehance,   label: "Behance",   bg: "bg-brand-muddy", text: "text-brand-bg" },
+  twitter:   { icon: FaTwitter,   label: "Twitter",   bg: "bg-brand-bg" },
+  x:         { icon: FaTwitter,   label: "X",         bg: "bg-brand-dark", text: "text-brand-bg" },
+  linkedin:  { icon: FaLinkedin,  label: "LinkedIn",  bg: "bg-brand-rose" },
+  tiktok:    { icon: FaTiktok,    label: "TikTok",    bg: "bg-brand-dark", text: "text-brand-bg" },
+  facebook:  { icon: FaFacebook,  label: "Facebook",  bg: "bg-brand-rose" },
+  pinterest: { icon: FaPinterest, label: "Pinterest", bg: "bg-brand-muddy", text: "text-brand-bg" },
+  github:    { icon: FaGithub,    label: "GitHub",    bg: "bg-brand-dark", text: "text-brand-bg" },
+  dribbble:  { icon: FaDribbble,  label: "Dribbble",  bg: "bg-brand-rose" },
+  threads:   { icon: FaThreads,   label: "Threads",   bg: "bg-brand-bg" },
+  twitch:    { icon: FaTwitch,    label: "Twitch",    bg: "bg-brand-muddy", text: "text-brand-bg" },
+  snapchat:  { icon: FaSnapchat,  label: "Snapchat",  bg: "bg-brand-rose" },
+};
+
+function buildTiles() {
+  const tiles = [
+    { key: "email", name: "Email", icon: Mail, href: `mailto:${PROFILE.email}`, sub: PROFILE.email, bg: "bg-brand-red" },
+  ];
+
+  Object.entries(PROFILE.socials || {}).forEach(([key, url]) => {
+    if (!url) return; // empty value = skip, no tile
+    const meta = SOCIAL_META[key.toLowerCase()] || {
+      icon: LinkIcon,
+      label: key.charAt(0).toUpperCase() + key.slice(1),
+      bg: "bg-brand-bg",
+    };
+    tiles.push({ key, name: meta.label, icon: meta.icon, href: url, sub: url.replace(/^https?:\/\//, ""), bg: meta.bg, text: meta.text });
+  });
+
+  return tiles;
+}
 
 export default function Contact() {
+  const tiles = buildTiles();
+
   return (
     <section
       id="contact"
@@ -32,22 +72,24 @@ export default function Contact() {
           Got footage to cut or shots to retouch? Send it over — I&apos;ll reply with turnaround and pricing.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {TILES.map((tile, i) => (
+        {/* flex-wrap + justify-center instead of a fixed grid, so tiles always
+            stay centered no matter how many socials you add or remove. */}
+        <div className="flex flex-wrap justify-center gap-4">
+          {tiles.map((tile, i) => (
             <motion.a
-              key={tile.name}
+              key={tile.key}
               href={tile.href}
-              target={tile.name === "Email" ? undefined : "_blank"}
-              rel={tile.name === "Email" ? undefined : "noopener noreferrer"}
+              target={tile.key === "email" ? undefined : "_blank"}
+              rel={tile.key === "email" ? undefined : "noopener noreferrer"}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className={`flex flex-col items-center gap-3 p-6 border-3 border-brand-dark neo-shadow ${tile.bg} ${tile.text || "text-brand-dark"} hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[7px_7px_0px_0px_var(--color-brand-dark)] transition-all duration-150`}
+              className={`w-40 sm:w-44 flex flex-col items-center gap-3 p-6 border-3 border-brand-dark neo-shadow ${tile.bg} ${tile.text || "text-brand-dark"} hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[7px_7px_0px_0px_var(--color-brand-dark)] transition-all duration-150`}
             >
-              <tile.icon size={30} strokeWidth={2} />
+              <tile.icon size={30} />
               <span className="font-display font-extrabold text-sm uppercase tracking-wider">{tile.name}</span>
-              <span className="text-xs opacity-80 font-bold text-center">{tile.sub}</span>
+              <span className="text-xs opacity-80 font-bold text-center break-all">{tile.sub}</span>
             </motion.a>
           ))}
         </div>

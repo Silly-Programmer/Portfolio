@@ -47,6 +47,7 @@ const WHAT_I_DO = [
 
 export default function AboutMe() {
   const statCardBase = `https://awesome-github-stats.azurewebsites.net`;
+  const hasShowcase = Boolean(PROFILE.github);
 
   return (
     <section
@@ -70,8 +71,9 @@ export default function AboutMe() {
           </motion.div>
         </div>
 
-        {/* Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        {/* Layout Grid — single column when there's no right-side showcase card,
+            so the left cards go full width instead of leaving a dead half. */}
+        <div className={`grid grid-cols-1 ${hasShowcase ? "lg:grid-cols-2" : "max-w-3xl mx-auto"} gap-10 items-start`}>
 
           {/* Left Column: Bio & Info */}
           <div className="space-y-8">
@@ -128,34 +130,34 @@ export default function AboutMe() {
             </NeoWindow>
           </div>
 
-          {/* Right Column: Showcase Platforms */}
+          {/* Right Column: Showcase Platforms — only rendered when there's something to put in it */}
+          {hasShowcase && (
           <div className="space-y-8">
 
-            {/* GitHub Stats Panel — optional, only if PROFILE.github is set */}
-            {PROFILE.github && (
-              <NeoWindow
-                title="GitHub Activity"
-                icon={Github}
-                headerBg="bg-brand-muddy"
-                textCol="text-brand-bg"
-                onClick={() => window.open(`https://github.com/${PROFILE.github}`, "_blank")}
-              >
-                <div className="border-2 border-brand-dark p-2 bg-brand-dark neo-shadow-sm overflow-hidden hover:scale-[1.01] transition-transform duration-150">
-                  <img
-                    loading="lazy"
-                    className="w-full h-auto object-cover"
-                    alt={`GitHub stats card for ${PROFILE.github}`}
-                    src={`${statCardBase}/user-stats/${PROFILE.github}?cardType=github&theme=dark&fontFamily=Mandali&preferLogin=false&Border=000000`}
-                  />
-                </div>
-                <div className="mt-3 text-right">
-                  <span className="text-xs font-bold uppercase tracking-wider text-black bg-brand-rose px-2.5 py-1 border border-brand-dark">
-                    Click to visit GitHub
-                  </span>
-                </div>
-              </NeoWindow>
-            )}
+            {/* GitHub Stats Panel */}
+            <NeoWindow
+              title="GitHub Activity"
+              icon={Github}
+              headerBg="bg-brand-muddy"
+              textCol="text-brand-bg"
+              onClick={() => window.open(`https://github.com/${PROFILE.github}`, "_blank")}
+            >
+              <div className="border-2 border-brand-dark p-2 bg-brand-dark neo-shadow-sm overflow-hidden hover:scale-[1.01] transition-transform duration-150">
+                <img
+                  loading="lazy"
+                  className="w-full h-auto object-cover"
+                  alt={`GitHub stats card for ${PROFILE.github}`}
+                  src={`${statCardBase}/user-stats/${PROFILE.github}?cardType=github&theme=dark&fontFamily=Mandali&preferLogin=false&Border=000000`}
+                />
+              </div>
+              <div className="mt-3 text-right">
+                <span className="text-xs font-bold uppercase tracking-wider text-black bg-brand-rose px-2.5 py-1 border border-brand-dark">
+                  Click to visit GitHub
+                </span>
+              </div>
+            </NeoWindow>
           </div>
+          )}
         </div>
       </div>
     </section>

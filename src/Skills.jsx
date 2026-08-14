@@ -54,7 +54,8 @@ export default function Skills() {
           })}
         </div>
 
-        {/* Grid */}
+        {/* Grid — flex-wrap + justify-center instead of a fixed grid, so any
+            number of tools per tab stays centered instead of hugging the left. */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -62,12 +63,12 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+            className="flex flex-wrap justify-center gap-4"
           >
             {SKILLS[activeTab].map((tool, i) => (
               <div
                 key={tool.name}
-                className="flex flex-col items-center justify-center gap-3 p-5 bg-brand-bg border-3 border-t-4 border-brand-dark neo-shadow-sm hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--color-brand-dark)] transition-all duration-150"
+                className="w-32 sm:w-36 flex flex-col items-center justify-center gap-3 p-5 bg-brand-bg border-3 border-t-4 border-brand-dark neo-shadow-sm hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--color-brand-dark)] transition-all duration-150"
                 style={{ borderTopColor: cardAccents[i % (cardAccents.length - 1)] }}
               >
                 <div className="w-10 h-10 flex items-center justify-center">

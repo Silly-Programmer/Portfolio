@@ -21,17 +21,30 @@
   --color-brand-gray: #969898;
   --color-brand-muddy: #908571;
   --color-brand-rose: #E0A0A1;
-  
+
   --font-display: "Syne", sans-serif;
   --font-sans: "Space Grotesk", sans-serif;
   --font-size-xxs: 0.65rem;
 }
 
+/* @theme {
+  --color-brand-bg: #121617;
+  --color-brand-dark: #F3F1EC;
+  --color-brand-red: #FF5C72;
+  --color-brand-gray: #A8ABAB;
+  --color-brand-muddy: #A69B85;
+  --color-brand-rose: #E7A8A9;
+
+  --font-display: "Syne", sans-serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-size-xxs: 0.65rem;
+} */
+
 @layer base {
   * {
     border-color: var(--color-brand-dark);
   }
-  
+
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
@@ -63,53 +76,73 @@
   ::-webkit-scrollbar {
     width: 12px;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--color-brand-bg);
     border-left: 3px solid var(--color-brand-dark);
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--color-brand-red);
     border: 3px solid var(--color-brand-dark);
     border-radius: 0px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-brand-muddy);
   }
 }
 
 /* Custom Neo-brutalist Utilities */
-@utility bg-grid-pattern {
-  background-image: radial-gradient(var(--color-brand-gray) 1px, transparent 1px);
-  background-size: 24px 24px;
+@layer utility {
+  .bg-grid-pattern {
+    background-image: radial-gradient(var(--color-brand-gray) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }
 
-@utility bg-grid-lines {
-  background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(24, 33, 37, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(24, 33, 37, 0.1) 1px, transparent 1px);
+@layer utility {
+  .bg-grid-lines {
+    background-size: 40px 40px;
+    background-image:
+      linear-gradient(to right, rgba(24, 33, 37, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(24, 33, 37, 0.1) 1px, transparent 1px);
+  }
 }
 
-@utility neo-shadow {
-  box-shadow: 4px 4px 0px 0px var(--color-brand-dark);
+@layer utility {
+  .neo-shadow {
+    box-shadow: 4px 4px 0px 0px var(--color-brand-dark);
+  }
 }
 
-@utility neo-shadow-lg {
-  box-shadow: 8px 8px 0px 0px var(--color-brand-dark);
+@layer utility {
+  .neo-shadow-lg {
+    box-shadow: 8px 8px 0px 0px var(--color-brand-dark);
+  }
 }
 
-@utility neo-shadow-sm {
-  box-shadow: 2px 2px 0px 0px var(--color-brand-dark);
+@layer utility {
+  .neo-shadow-sm {
+    box-shadow: 2px 2px 0px 0px var(--color-brand-dark);
+  }
 }
 
 /* Scroll Animation Keyframes */
 @keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-@utility animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: scroll-left 20s linear infinite;
+@layer utility {
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: scroll-left 20s linear infinite;
+  }
 }
